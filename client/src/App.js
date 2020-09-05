@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Movie from './Movies/Movie';
+import MovieList from './Movies/MovieList'
 import SavedList from './Movies/SavedList';
 import { Route, Switch } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ const App = () => {
         .get('http://localhost:5000/api/movies')
         .then(response => {
           setMovieList(response.data);
+          console.log(response.data);
         })
         .catch(error => {
           console.error('Server Error', error);
@@ -29,14 +31,14 @@ const App = () => {
   return (
     <div>
       <SavedList list={[ /* This is stretch */]} />
-      // Adding Switch Tag
+      {/* Adding Switch Tag */}
       <Switch>
-        // Creating My Routes
-        <Route>
-          Route 1
+        {/* Creating My Routes */}
+        <Route path="/movies/:id">
+          <MovieList movies={ movieList } />
         </Route>
-        <Route>
-          Route 2
+        <Route path="/">
+          <MovieList movies={ movieList } />
         </Route>
       </Switch>
     </div>
